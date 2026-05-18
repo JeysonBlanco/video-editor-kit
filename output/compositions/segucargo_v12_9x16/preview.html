@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>segucargo_v12_9x16 — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background: #08080c; min-height: 100vh; color: #fff; font-family: 'Inter', sans-serif; }
+  .app { display: flex; gap: 24px; padding: 24px; align-items: flex-start; max-width: 1280px; margin: 0 auto; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; margin-bottom: 4px; }
+  h1 b { color: #22d3ee; }
+  .meta { color: #B0B0B0; font-size: 13px; margin-bottom: 18px; font-family: 'JetBrains Mono', monospace; }
+
+  .stage-wrap {
+    position: relative;
+    width: 540px;
+    height: 960px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(34,211,238,0.08) inset;
+  }
+  .stage-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .stage-wrap iframe {
+    position: absolute; inset: 0;
+    width: 540px; height: 960px;
+    border: 0;
+    pointer-events: none;
+    background: transparent;
+  }
+
+  .panel { width: 360px; }
+
+  .controls {
+    background: rgba(20,20,28,0.85);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 16px; margin-bottom: 18px;
+  }
+  .row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    padding: 10px 16px; border-radius: 10px;
+    background: #22d3ee; color: #052e36;
+    font-weight: 800; font-size: 13px; letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 6px 22px rgba(34,211,238,0.35);
+  }
+  .btn.secondary { background: rgba(255,255,255,0.08); color: #fff; box-shadow: none; }
+  .scrub { flex: 1; }
+  .scrub input { width: 100%; }
+  .time { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #22d3ee; min-width: 80px; text-align: right; }
+
+  .beats {
+    background: rgba(20,20,28,0.85);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 16px;
+  }
+  .beats h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #B0B0B0; margin-bottom: 12px; font-weight: 600; }
+  .beat-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    margin-bottom: 8px; font-size: 13px;
+  }
+  .beat-row.active { background: rgba(34,211,238,0.16); border: 1px solid rgba(34,211,238,0.4); }
+  .beat-row .dot { width: 8px; height: 8px; border-radius: 50%; background: #555; }
+  .beat-row.active .dot { background: #22d3ee; box-shadow: 0 0 10px #22d3ee; }
+  .beat-row .name { flex: 1; font-weight: 600; }
+  .beat-row .when { color: #888; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+  .legend { margin-top: 14px; color: #888; font-size: 12px; line-height: 1.6; }
+  .legend b { color: #fff; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="stage-wrap" id="stage">
+    <video id="vid" src="../../segucargo_v12_9x16_base.mp4" preload="auto" playsinline></video>
+    <iframe data-name="hook"   data-start="0.0"  data-end="2.6"  src="hook_flash.html?driven"></iframe>
+    <iframe data-name="stats"  data-start="7.5"  data-end="18.5" src="stats_context.html?driven"></iframe>
+    <iframe data-name="plant"  data-start="11.0" data-end="16.0" src="brand_plant.html?driven"></iframe>
+    <iframe data-name="proof"  data-start="40.0" data-end="46.0" src="social_proof_fix.html?driven"></iframe>
+    <iframe data-name="cta"    data-start="47.0" data-end="53.2" src="cta_reinforce.html?driven"></iframe>
+  </div>
+
+  <div class="panel">
+    <h1>segucargo v12 <b>· 9:16</b></h1>
+    <div class="meta">540×960 · 30fps · 53.25s · re-cuadrado vertical con blur fill</div>
+
+    <div class="controls">
+      <div class="row">
+        <button class="btn" id="play">▶ PLAY</button>
+        <button class="btn secondary" id="restart">↺ Reiniciar</button>
+        <span class="time" id="time">0.00s</span>
+      </div>
+      <div class="scrub"><input type="range" id="seek" min="0" max="53.3" step="0.05" value="0"></div>
+    </div>
+
+    <div class="beats">
+      <h2>Overlays nuevos</h2>
+      <div class="beat-row" data-target="hook">
+        <div class="dot"></div>
+        <div class="name">Hook in-medias-res</div>
+        <div class="when">0.0–2.6</div>
+      </div>
+      <div class="beat-row" data-target="stats">
+        <div class="dot"></div>
+        <div class="name">Contexto del 73%</div>
+        <div class="when">7.5–18.5</div>
+      </div>
+      <div class="beat-row" data-target="plant">
+        <div class="dot"></div>
+        <div class="name">Brand plant (teaser)</div>
+        <div class="when">11.0–16.0</div>
+      </div>
+      <div class="beat-row" data-target="proof">
+        <div class="dot"></div>
+        <div class="name">+247 (cubre +200)</div>
+        <div class="when">40.0–46.0</div>
+      </div>
+      <div class="beat-row" data-target="cta">
+        <div class="dot"></div>
+        <div class="name">EMPIEZA GRATIS + chips</div>
+        <div class="when">47.0–53.3</div>
+      </div>
+      <div class="legend">
+        <b>9 cambios aplicados:</b><br>
+        1. Re-cuadrado 9:16 con blur fill<br>
+        2. Hook in-medias-res — notificación "07:00 GERENTE GENERAL"<br>
+        3. Stat contextualizado: el 73% ahora tiene claim concreto<br>
+        4. Brand plant en t=11s con teaser "HAY UNA SOLUCIÓN →"<br>
+        5. +200 reemplazado por <b>+247</b> (alinea con el speech)<br>
+        6. Contradicción <b>resuelta</b>: el botón "Agendá demo" tapado con "EMPIEZA GRATIS · 1 MIN"<br>
+        7. Sub-mensaje añadido: "sin tarjeta, sin llamadas"<br>
+        8. Chips rotativos value-prop (GPS · ETAs · WhatsApp · Sin vendedor)<br>
+        9. Cuts derivativos 15s y 30s en otra pestaña (preview_cuts.html)<br><br>
+        <b>Pendiente que requiere assets externos:</b><br>
+        · Sound effects (whoosh, sub-bass impact, chime de reveal)<br>
+        · Track musical con progresión problema→reveal→CTA
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL = 53.25;
+const vid = document.getElementById('vid');
+const seek = document.getElementById('seek');
+const playBtn = document.getElementById('play');
+const restartBtn = document.getElementById('restart');
+const timeLabel = document.getElementById('time');
+
+const frames = Array.from(document.querySelectorAll('#stage iframe')).map(f => ({
+  el: f, name: f.dataset.name,
+  start: parseFloat(f.dataset.start),
+  end: parseFloat(f.dataset.end),
+  ready: false,
+}));
+
+for (const fr of frames) {
+  fr.el.addEventListener('load', () => { fr.ready = true; });
+}
+
+function update(t){
+  timeLabel.textContent = t.toFixed(2) + 's';
+  if (parseFloat(seek.value) !== t) seek.value = t;
+  for (const fr of frames){
+    const inRange = t >= fr.start && t <= fr.end + 0.05;
+    fr.el.style.opacity = inRange ? '1' : '0';
+    if (inRange && fr.ready && fr.el.contentWindow){
+      try { fr.el.contentWindow.render(t - fr.start); } catch(e){}
+    }
+    const row = document.querySelector(`.beat-row[data-target="${fr.name}"]`);
+    if (row) row.classList.toggle('active', inRange);
+  }
+}
+
+vid.addEventListener('timeupdate', () => update(vid.currentTime));
+vid.addEventListener('seeked', () => update(vid.currentTime));
+vid.addEventListener('play', () => { playBtn.textContent = '⏸ PAUSE'; tick(); });
+vid.addEventListener('pause', () => { playBtn.textContent = '▶ PLAY'; });
+
+function tick(){
+  if (vid.paused) return;
+  update(vid.currentTime);
+  requestAnimationFrame(tick);
+}
+
+playBtn.addEventListener('click', () => { vid.paused ? vid.play() : vid.pause(); });
+restartBtn.addEventListener('click', () => { vid.currentTime = 0; vid.play(); });
+seek.addEventListener('input', () => { vid.currentTime = parseFloat(seek.value); });
+
+window.addEventListener('load', () => setTimeout(()=>update(0), 200));
+</script>
+</body>
+</html>

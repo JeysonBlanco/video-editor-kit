@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>segucargo v12 — Cuts derivativos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background: #08080c; min-height: 100vh; color: #fff; font-family: 'Inter', sans-serif; }
+  .page { padding: 30px; max-width: 1280px; margin: 0 auto; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; margin-bottom: 4px; }
+  h1 b { color: #22d3ee; }
+  .sub { color: #B0B0B0; font-size: 13px; margin-bottom: 28px; font-family: 'JetBrains Mono', monospace; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .col h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 13px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #22d3ee;
+    margin-bottom: 6px;
+  }
+  .col .dur {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: #888;
+    margin-bottom: 12px;
+  }
+  .stage {
+    width: 100%;
+    aspect-ratio: 540 / 960;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+  }
+  .stage video { width: 100%; height: 100%; object-fit: cover; }
+  .col .note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #888;
+    line-height: 1.55;
+  }
+  .col .note b { color: #fff; }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>segucargo v12 · <b>tres versiones</b></h1>
+  <div class="sub">Mismo material · 3 longitudes para distintas plataformas</div>
+
+  <div class="grid">
+    <div class="col">
+      <h3>SHORT — Reels / TikTok</h3>
+      <div class="dur">~17.5s · hook + dolor + reveal + CTA</div>
+      <div class="stage"><video src="../../segucargo_v12_9x16_SHORT_FINAL.mp4" controls preload="auto" playsinline></video></div>
+      <div class="note">Para feeds rápidos. <b>Sin features intermedias</b> — solo el arco emocional puro. Mejor para discovery.</div>
+    </div>
+
+    <div class="col">
+      <h3>MID — Reels largo / Stories</h3>
+      <div class="dur">~34.5s · hook + dolor + reveal + features + CTA</div>
+      <div class="stage"><video src="../../segucargo_v12_9x16_MID_FINAL.mp4" controls preload="auto" playsinline></video></div>
+      <div class="note">Incluye GPS/dashboard. <b>Mejor para audiencias warm</b> que ya saben qué es SeguTracker. Más completo.</div>
+    </div>
+
+    <div class="col">
+      <h3>LONG — YouTube / Landing</h3>
+      <div class="dur">53.3s · versión completa con todos los overlays</div>
+      <div class="stage"><video src="../../segucargo_v12_9x16_LONG_FINAL.mp4" controls preload="auto" playsinline></video></div>
+      <div class="note">El cinemático entero con todos los overlays incrustados. Para ads pagados en YouTube y landing.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

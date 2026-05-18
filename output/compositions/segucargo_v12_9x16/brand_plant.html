@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>brand_plant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width: 540px;
+    height: 960px;
+    background: transparent !important;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+  }
+  .scene { position: absolute; inset: 0; }
+
+  /* Hint sutil en el blur superior: "Hay una solución →" */
+  .hint {
+    position: absolute;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(8,46,54,0.92);
+    border: 1px solid rgba(34,211,238,0.45);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.55);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    color: #67e8f9;
+    text-transform: uppercase;
+    opacity: 0;
+  }
+  .hint .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 10px #22d3ee;
+  }
+  .hint .arrow {
+    color: rgba(103,232,249,0.6);
+    margin-left: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="hint" id="hint">
+    <span class="dot"></span>HAY UNA SOLUCIÓN<span class="arrow">→</span>
+  </div>
+</div>
+
+<script>
+const DURATION = 5.0;
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+function ease(t){ return 1 - Math.pow(1 - t, 3); }
+
+function render(t){
+  const hint = document.getElementById('hint');
+  const inK = clamp((t - 0.1) / 0.35, 0, 1);
+  const outK = clamp((t - 4.4) / 0.45, 0, 1);
+  const e = ease(inK) * (1 - ease(outK));
+  hint.style.opacity = e;
+  hint.style.transform = `translateX(-50%) translateY(${(1-ease(inK))*-8}px)`;
+}
+
+window.render = render;
+window.DURATION = DURATION;
+
+const __driven = new URLSearchParams(location.search).has('driven');
+if (!window.__captureMode && !__driven) {
+  const start = performance.now();
+  function loop(){
+    const t = (performance.now() - start) / 1000;
+    if (t > DURATION) { render(0); setTimeout(()=>requestAnimationFrame(loop), 800); return; }
+    render(t);
+    requestAnimationFrame(loop);
+  }
+  document.fonts && document.fonts.ready.then(()=>requestAnimationFrame(loop));
+  if (!document.fonts) requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

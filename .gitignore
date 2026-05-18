@@ -1,16 +1,39 @@
 # API keys
 .env
 
-# Vídeos (demasiado pesados para git)
+# Vídeos crudos / outputs pesados (excluidos por defecto)
 input/*
 output/*
 !input/.gitkeep
 !output/.gitkeep
-!output/compositions
+
+# Compositions: permitir los HTMLs y JS de cada proyecto, NO los renders ni node_modules
+!output/compositions/
 output/compositions/*
 !output/compositions/.gitkeep
+!output/compositions/*/
+output/compositions/*/*
+!output/compositions/*/*.html
+!output/compositions/*/*.js
+!output/compositions/*/*.md
+!output/compositions/*/.gitkeep
+output/compositions/*/renders/
+output/compositions/*/node_modules/
+output/compositions/*/package-lock.json
 
-# Skills clonadas (se instalan via setup.sh)
+# Edit metadata: permitir EDLs y transcripts limpios (no los crudos pesados)
+!output/edit/
+output/edit/*
+!output/edit/edl.json
+!output/edit/transcripts/
+output/edit/transcripts/*
+!output/edit/transcripts/.gitkeep
+
+# Permitir el paquete deploy (incluye los mp4 finales, ~17MB)
+!deploy/
+!deploy/**
+
+# Skills clonadas (se reinstalan via setup.sh)
 skills/video-use/
 skills/hyperframes/
 
@@ -20,9 +43,14 @@ __pycache__/
 *.pyc
 .python-version
 
-# macOS
+# macOS / Windows
 .DS_Store
+Thumbs.db
+desktop.ini
 
-# Proyectos de clientes (privados)
+# Proyectos de clientes (privados — sin assets pesados)
 projects/*/assets/
 projects/*/*.mp4
+
+# Análisis temporal (frames de inspección)
+output/analysis/

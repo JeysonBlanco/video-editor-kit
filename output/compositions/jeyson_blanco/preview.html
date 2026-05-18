@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>jeyson_blanco — Preview compuesto</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background: #08080c; min-height: 100vh; color: #fff; font-family: 'Inter', sans-serif; }
+  .app { display: flex; gap: 24px; padding: 24px; align-items: flex-start; max-width: 1280px; margin: 0 auto; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; margin-bottom: 4px; }
+  h1 b { color: #FAC51C; }
+  .meta { color: #B0B0B0; font-size: 13px; margin-bottom: 18px; font-family: 'JetBrains Mono', monospace; }
+
+  .stage-wrap {
+    position: relative;
+    width: 540px;
+    height: 960px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(250,197,28,0.08) inset;
+  }
+  .stage-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .stage-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 540px;
+    height: 960px;
+    border: 0;
+    pointer-events: none;
+    background: transparent;
+  }
+  .hidden { display: none; }
+
+  .panel { width: 360px; }
+
+  .controls {
+    background: rgba(20,20,28,0.85);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 18px;
+  }
+  .row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    padding: 10px 16px; border-radius: 10px;
+    background: #FAC51C; color: #0d0d0d;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 6px 22px rgba(250,197,28,0.35);
+  }
+  .btn.secondary { background: rgba(255,255,255,0.08); color: #fff; box-shadow: none; }
+  .scrub { flex: 1; }
+  .scrub input { width: 100%; }
+  .time { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #FAC51C; min-width: 80px; text-align: right; }
+
+  .beats {
+    background: rgba(20,20,28,0.85);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .beats h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #B0B0B0; margin-bottom: 12px; font-weight: 600; }
+  .beat-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .beat-row.active { background: rgba(250,197,28,0.14); border: 1px solid rgba(250,197,28,0.35); }
+  .beat-row .dot { width: 8px; height: 8px; border-radius: 50%; background: #555; }
+  .beat-row.active .dot { background: #FAC51C; box-shadow: 0 0 10px #FAC51C; }
+  .beat-row .name { flex: 1; font-weight: 600; }
+  .beat-row .when { color: #888; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+  .legend { margin-top: 14px; color: #888; font-size: 12px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="stage-wrap" id="stage">
+    <video id="vid" src="../../VIDEO_JEYSON_BLANCO_PRUEBA_edited_v3.mp4" preload="auto" playsinline></video>
+    <iframe data-name="01_intro"    data-start="0.00" data-end="4.17" src="beat_01_intro.html?driven"></iframe>
+    <iframe data-name="02_problema" data-start="4.35" data-end="7.41" src="beat_02_problema.html?driven"></iframe>
+    <iframe data-name="03_cta"      data-start="7.59" data-end="9.30" src="beat_03_cta.html?driven"></iframe>
+    <iframe data-name="04_karaoke"  data-start="0.00" data-end="9.30" src="beat_04_karaoke.html?driven"></iframe>
+    <iframe data-name="05_outro"    data-start="17.50" data-end="20.61" src="beat_05_outro.html?driven"></iframe>
+  </div>
+
+  <div class="panel">
+    <h1>jeyson_blanco <b>· preview</b></h1>
+    <div class="meta">540×960 · 30fps · 20.61s · 9:16  ·  Jeyson +1.08x · cross-dissolve 0.4s · outro brand</div>
+
+    <div class="controls">
+      <div class="row">
+        <button class="btn" id="play">▶ PLAY</button>
+        <button class="btn secondary" id="restart">↺ Reiniciar</button>
+        <span class="time" id="time">0.00s</span>
+      </div>
+      <div class="scrub"><input type="range" id="seek" min="0" max="20.7" step="0.05" value="0"></div>
+    </div>
+
+    <div class="beats">
+      <h2>Beats</h2>
+      <div class="beat-row" data-target="01_intro">
+        <div class="dot"></div><div class="name">01 · Intro</div><div class="when">0.00–4.17</div>
+      </div>
+      <div class="beat-row" data-target="02_problema">
+        <div class="dot"></div><div class="name">02 · Problema</div><div class="when">4.35–7.41</div>
+      </div>
+      <div class="beat-row" data-target="03_cta">
+        <div class="dot"></div><div class="name">03 · CTA</div><div class="when">7.59–9.30</div>
+      </div>
+      <div class="beat-row" data-target="04_karaoke">
+        <div class="dot"></div><div class="name">04 · Karaoke</div><div class="when">0.00–9.30</div>
+      </div>
+      <div class="beat-row" style="background: rgba(96,165,250,0.10); border:1px solid rgba(96,165,250,0.28);">
+        <div class="dot" style="background:#60a5fa; box-shadow:0 0 10px #60a5fa;"></div>
+        <div class="name">— Cross-dissolve —</div><div class="when">9.30–9.73</div>
+      </div>
+      <div class="beat-row" style="background: rgba(96,165,250,0.10); border:1px solid rgba(96,165,250,0.28);">
+        <div class="dot" style="background:#60a5fa; box-shadow:0 0 10px #60a5fa;"></div>
+        <div class="name">Cinemático (limpio)</div><div class="when">9.73–17.50</div>
+      </div>
+      <div class="beat-row" data-target="05_outro">
+        <div class="dot"></div><div class="name">05 · Outro brand</div><div class="when">17.50–20.61</div>
+      </div>
+      <div class="legend">Si algo no convence, dilo y lo cambio sin re-renderizar todo. Cuando todo encaje, escribe <b>renderiza</b> y monto el .mp4 final.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const vid = document.getElementById('vid');
+const seek = document.getElementById('seek');
+const playBtn = document.getElementById('play');
+const restartBtn = document.getElementById('restart');
+const timeLabel = document.getElementById('time');
+
+const TOTAL = 20.61;
+const frames = Array.from(document.querySelectorAll('#stage iframe')).map(f => ({
+  el: f,
+  name: f.dataset.name,
+  start: parseFloat(f.dataset.start),
+  end: parseFloat(f.dataset.end),
+  ready: false,
+}));
+
+// Wait for each iframe to be ready
+for (const fr of frames) {
+  fr.el.addEventListener('load', () => { fr.ready = true; });
+}
+
+function update(t){
+  timeLabel.textContent = t.toFixed(2) + 's';
+  if (parseFloat(seek.value) !== t) seek.value = t;
+  for (const fr of frames){
+    const inRange = t >= fr.start && t <= fr.end + 0.05;
+    fr.el.style.opacity = inRange ? '1' : '0';
+    if (inRange && fr.ready && fr.el.contentWindow){
+      try { fr.el.contentWindow.render(t - fr.start); } catch(e){}
+    }
+    const row = document.querySelector(`.beat-row[data-target="${fr.name}"]`);
+    if (row) row.classList.toggle('active', inRange);
+  }
+}
+
+vid.addEventListener('timeupdate', () => update(vid.currentTime));
+vid.addEventListener('seeked', () => update(vid.currentTime));
+vid.addEventListener('play', () => { playBtn.textContent = '⏸ PAUSE'; tick(); });
+vid.addEventListener('pause', () => { playBtn.textContent = '▶ PLAY'; });
+
+function tick(){
+  if (vid.paused) return;
+  update(vid.currentTime);
+  requestAnimationFrame(tick);
+}
+
+playBtn.addEventListener('click', () => { vid.paused ? vid.play() : vid.pause(); });
+restartBtn.addEventListener('click', () => { vid.currentTime = 0; vid.play(); });
+seek.addEventListener('input', () => { vid.currentTime = parseFloat(seek.value); });
+
+// Init at t=0
+window.addEventListener('load', () => {
+  setTimeout(()=>update(0), 200);
+});
+</script>
+</body>
+</html>

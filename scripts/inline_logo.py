@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LOGO = ROOT / "brand" / "logo" / "logo-white.png"
 TARGETS = [
     ROOT / "output" / "compositions" / "jeyson_blanco" / "beat_03_cta.html",
+    ROOT / "output" / "compositions" / "jeyson_blanco" / "beat_05_outro.html",
 ]
 
 b64 = base64.b64encode(LOGO.read_bytes()).decode("ascii")

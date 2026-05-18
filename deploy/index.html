@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SeguTracker · Cinemático v12 — Tres versiones</title>
+<meta name="description" content="Anuncio cinemático SeguTracker · tres cortes para distintas plataformas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    background: linear-gradient(180deg, #050a12 0%, #08111c 100%);
+    min-height: 100vh; color: #fff;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1280px; margin: 0 auto; padding: 60px 24px; }
+
+  header { margin-bottom: 48px; text-align: center; }
+  header .logo {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(34,211,238,0.10);
+    border: 1px solid rgba(34,211,238,0.35);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 12px;
+    letter-spacing: 2.5px; color: #67e8f9;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  header .logo .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #22d3ee; box-shadow: 0 0 12px #22d3ee;
+  }
+  header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 44px;
+    line-height: 1.08; letter-spacing: -1.2px;
+    margin-bottom: 14px;
+  }
+  header h1 b { color: #22d3ee; }
+  header p {
+    color: #94a3b8; font-size: 15px; line-height: 1.6;
+    max-width: 560px; margin: 0 auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: rgba(20, 25, 38, 0.65);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: transform 200ms cubic-bezier(0.22,1,0.36,1), border-color 200ms;
+  }
+  .card:hover { transform: translateY(-3px); border-color: rgba(34,211,238,0.35); }
+  .card .stage {
+    width: 100%;
+    aspect-ratio: 540 / 960;
+    background: #000;
+    position: relative;
+  }
+  .card video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .meta { padding: 18px 20px 20px; }
+  .card .tag {
+    display: inline-block;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(34,211,238,0.15);
+    border: 1px solid rgba(34,211,238,0.4);
+    color: #67e8f9;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 22px;
+    margin-bottom: 4px; letter-spacing: -0.3px;
+  }
+  .card .dur {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #94a3b8;
+    margin-bottom: 10px;
+  }
+  .card .desc {
+    font-size: 13px; line-height: 1.55; color: #cbd5e1;
+  }
+  .card .actions {
+    display: flex; gap: 8px; margin-top: 14px;
+  }
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    padding: 9px 14px; border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; font-size: 12px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background 150ms;
+  }
+  .btn:hover { background: rgba(34,211,238,0.18); }
+  .btn.primary {
+    background: #22d3ee; color: #052e36;
+    box-shadow: 0 6px 22px rgba(34,211,238,0.35);
+  }
+  .btn.primary:hover { background: #67e8f9; }
+
+  footer {
+    margin-top: 56px; padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    color: #64748b; font-size: 12px;
+  }
+  footer a { color: #67e8f9; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="logo"><span class="dot"></span>SEGUCARGO · ADS</div>
+    <h1>SeguTracker · <b>tres versiones</b></h1>
+    <p>Mismo material cinemático en tres longitudes optimizadas para cada plataforma. Click en cualquiera para reproducir con audio.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <div class="stage"><video src="videos/SHORT.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="meta">
+        <div class="tag">REELS · TIKTOK</div>
+        <h3>SHORT cut</h3>
+        <div class="dur">~17.5s · 3.0 MB · 9:16 · 540×960</div>
+        <p class="desc">Para feeds rápidos. Hook → dolor → reveal → CTA, sin features intermedias. Arco emocional puro, ideal para discovery cold.</p>
+        <div class="actions">
+          <a class="btn primary" href="videos/SHORT.mp4" download>↓ Descargar</a>
+          <a class="btn" href="videos/SHORT.mp4" target="_blank">Abrir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="stage"><video src="videos/MID.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="meta">
+        <div class="tag">STORIES · REELS LARGO</div>
+        <h3>MID cut</h3>
+        <div class="dur">~34.5s · 5.5 MB · 9:16 · 540×960</div>
+        <p class="desc">Incluye GPS, mapa y dashboard. Mejor para audiencias warm que ya conocen SeguTracker. Más completo que el SHORT.</p>
+        <div class="actions">
+          <a class="btn primary" href="videos/MID.mp4" download>↓ Descargar</a>
+          <a class="btn" href="videos/MID.mp4" target="_blank">Abrir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="stage"><video src="videos/LONG.mp4" controls preload="metadata" playsinline></video></div>
+      <div class="meta">
+        <div class="tag">YOUTUBE · LANDING</div>
+        <h3>LONG cut</h3>
+        <div class="dur">53.3s · 8.4 MB · 9:16 · 540×960</div>
+        <p class="desc">Cinemático completo con todos los overlays incrustados: hook in-medias-res, stat contextualizada, brand plant, +247, CTA EMPIEZA GRATIS. Para ads pagados y landing pages.</p>
+        <div class="actions">
+          <a class="btn primary" href="videos/LONG.mp4" download>↓ Descargar</a>
+          <a class="btn" href="videos/LONG.mp4" target="_blank">Abrir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Generado con <a href="https://github.com/JeysonBlanco/video-editor-kit" target="_blank">Divisual Video Editor Kit</a> · Mayo 2026
+  </footer>
+</div>
+</body>
+</html>

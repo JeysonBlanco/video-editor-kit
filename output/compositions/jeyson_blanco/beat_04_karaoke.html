@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>beat_04_karaoke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width: 540px;
+    height: 960px;
+    background: transparent !important;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+  }
+  .scene { position:absolute; inset:0; }
+
+  .caption {
+    position: absolute;
+    left: 50%;
+    bottom: 8%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px 10px;
+  }
+  .word {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 38px;
+    line-height: 1.15;
+    color: #ffffff;
+    text-shadow:
+      0 3px 0 rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.9);
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    transition: color 60ms linear, transform 80ms cubic-bezier(0.34,1.56,0.64,1), text-shadow 100ms ease;
+    display: inline-block;
+  }
+  .word.active {
+    color: #FAC51C;
+    transform: scale(1.10);
+    text-shadow:
+      0 0 22px rgba(250,197,28,0.7),
+      0 3px 0 rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.95);
+  }
+  .word.past { color: #ffffff; opacity: 0.85; }
+  .word.future { color: rgba(255,255,255,0.45); }
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="caption" id="cap"></div>
+</div>
+
+<script id="words-data" type="application/json">
+[
+  {"text": "Si","start": 0.295,"end": 0.351},
+  {"text": "importas","start": 0.388,"end": 0.666},
+  {"text": "contenedores","start": 0.703,"end": 1.13},
+  {"text": "desde","start": 1.166,"end": 1.295},
+  {"text": "China","start": 1.406,"end": 1.74},
+  {"text": "y","start": 1.795,"end": 1.814},
+  {"text": "tu","start": 1.888,"end": 1.962},
+  {"text": "freight","start": 1.999,"end": 2.129},
+  {"text": "forwarding","start": 2.166,"end": 2.666},
+  {"text": "no","start": 2.721,"end": 2.795},
+  {"text": "tiene","start": 2.832,"end": 2.944},
+  {"text": "los","start": 3.018,"end": 3.11},
+  {"text": "convenios","start": 3.129,"end": 3.463},
+  {"text": "adecuados","start": 3.518,"end": 3.999},
+  {"text": "con","start": 4.018,"end": 4.093},
+  {"text": "las","start": 4.111,"end": 4.203},
+  {"text": "navieras,","start": 4.221,"end": 4.666},
+  {"text": "estar\u00edas","start": 4.832,"end": 5.221},
+  {"text": "pagando","start": 5.258,"end": 5.556},
+  {"text": "de","start": 5.556,"end": 5.666},
+  {"text": "m\u00e1s","start": 5.684,"end": 5.981},
+  {"text": "en","start": 6.019,"end": 6.092},
+  {"text": "p\u00f3liza","start": 6.129,"end": 6.388},
+  {"text": "de","start": 6.426,"end": 6.499},
+  {"text": "contenedor.","start": 6.536,"end": 7.147},
+  {"text": "Ven","start": 7.24,"end": 7.591},
+  {"text": "y","start": 7.646,"end": 7.665},
+  {"text": "yo","start": 7.72,"end": 7.757},
+  {"text": "te","start": 7.814,"end": 7.851},
+  {"text": "explico","start": 7.869,"end": 8.165},
+  {"text": "c\u00f3mo","start": 8.203,"end": 8.294},
+  {"text": "en","start": 8.314,"end": 8.388},
+  {"text": "SeguroCargo","start": 8.406,"end": 8.961},
+  {"text": "lo","start": 8.998,"end": 9.072},
+  {"text": "resolvemos.","start": 9.109,"end": 9.646}
+]
+</script>
+
+<script>
+const WORDS = JSON.parse(document.getElementById('words-data').textContent);
+const DURATION = 9.722;
+
+// Group words into phrases of up to ~3 words OR phrase break on punctuation
+function makePhrases(words){
+  const out = [];
+  let cur = [];
+  let charCount = 0;
+  for (const w of words){
+    cur.push(w);
+    charCount += w.text.replace(/[.,]/g,'').length;
+    const last = w.text;
+    const endsPhrase = /[.,]/.test(last) || cur.length >= 3 || charCount >= 18;
+    if (endsPhrase){
+      out.push(cur);
+      cur = [];
+      charCount = 0;
+    }
+  }
+  if (cur.length) out.push(cur);
+  return out;
+}
+
+const PHRASES = makePhrases(WORDS);
+// Attach start/end to each phrase
+PHRASES.forEach(p => {
+  p.start = p[0].start;
+  p.end = p[p.length - 1].end;
+});
+// Extend each phrase visibility until the next phrase starts (avoid gaps)
+for (let i = 0; i < PHRASES.length - 1; i++){
+  PHRASES[i].visibleUntil = PHRASES[i+1].start;
+}
+PHRASES[PHRASES.length - 1].visibleUntil = DURATION;
+
+const cap = document.getElementById('cap');
+let currentPhraseIdx = -1;
+let nodes = [];
+
+function showPhrase(idx){
+  cap.innerHTML = '';
+  nodes = [];
+  PHRASES[idx].forEach(w => {
+    const span = document.createElement('span');
+    span.className = 'word future';
+    // Strip trailing punctuation from word display, keep clean
+    span.textContent = w.text.replace(/[,.]$/,'');
+    span._start = w.start;
+    span._end = w.end;
+    cap.appendChild(span);
+    nodes.push(span);
+  });
+  currentPhraseIdx = idx;
+}
+
+function render(t){
+  // Find current phrase
+  let idx = -1;
+  for (let i = PHRASES.length - 1; i >= 0; i--){
+    if (t >= PHRASES[i].start - 0.05){ idx = i; break; }
+  }
+  if (idx < 0) {
+    cap.innerHTML = '';
+    nodes = [];
+    currentPhraseIdx = -1;
+    return;
+  }
+  // Hide if past visibleUntil
+  if (t > PHRASES[idx].visibleUntil){
+    cap.innerHTML = '';
+    nodes = [];
+    currentPhraseIdx = -1;
+    return;
+  }
+
+  if (idx !== currentPhraseIdx) showPhrase(idx);
+
+  // Update active/past/future state per word
+  for (const node of nodes){
+    if (t > node._end + 0.04) {
+      node.className = 'word past';
+    } else if (t >= node._start - 0.04 && t <= node._end + 0.04) {
+      node.className = 'word active';
+    } else {
+      node.className = 'word future';
+    }
+  }
+
+  // Fade in/out of phrase
+  const phr = PHRASES[idx];
+  const inK = Math.min(1, (t - phr.start + 0.12) / 0.15);
+  const outK = Math.min(1, Math.max(0, (t - (phr.visibleUntil - 0.18)) / 0.18));
+  cap.style.opacity = Math.max(0, Math.min(1, inK) - outK);
+}
+
+window.render = render;
+window.DURATION = DURATION;
+
+const __driven = new URLSearchParams(location.search).has('driven');
+if (!window.__captureMode && !__driven) {
+  const start = performance.now();
+  function loop(){
+    const t = (performance.now() - start) / 1000;
+    if (t > DURATION + 0.5) { cap.innerHTML = ''; setTimeout(()=>{ currentPhraseIdx = -1; loopReset(); }, 700); return; }
+    render(t);
+    requestAnimationFrame(loop);
+  }
+  function loopReset(){
+    const ns = performance.now();
+    function l2(){
+      const t = (performance.now() - ns) / 1000;
+      if (t > DURATION + 0.5) { cap.innerHTML = ''; setTimeout(loopReset, 700); return; }
+      render(t);
+      requestAnimationFrame(l2);
+    }
+    currentPhraseIdx = -1;
+    requestAnimationFrame(l2);
+  }
+  document.fonts && document.fonts.ready.then(()=>requestAnimationFrame(loop));
+  if (!document.fonts) requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

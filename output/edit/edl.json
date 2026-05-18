@@ -1,0 +1,56 @@
+{
+  "source_a": "input/VIDEO_JEYSON_BLANCO_PRUEBA.mp4",
+  "source_b": "input/external/segucargo_cinematic_15s.mp4",
+  "output_base": "output/VIDEO_JEYSON_BLANCO_PRUEBA_edited_v3.mp4",
+  "scenes": [
+    {
+      "label": "speaker_jeyson_hook_dolor",
+      "source": "source_a",
+      "in_source": 0.0,
+      "out_source": 7.819,
+      "in_output": 0.0,
+      "out_output": 7.240,
+      "speed": 1.08
+    },
+    {
+      "label": "speaker_jeyson_cta",
+      "source": "source_a",
+      "in_source": 8.72,
+      "out_source": 11.366,
+      "in_output": 7.240,
+      "out_output": 9.733,
+      "speed": 1.08
+    },
+    {
+      "label": "cross_dissolve",
+      "in_output": 9.333,
+      "out_output": 9.733,
+      "duration": 0.4
+    },
+    {
+      "label": "cinematic_outro",
+      "source": "source_b",
+      "in_source": 0.0,
+      "out_source": 11.3,
+      "in_output": 9.333,
+      "out_output": 20.633,
+      "transform": "scale 1080x1920 -> 540x960 lanczos"
+    }
+  ],
+  "cuts_applied": [
+    {"in": 7.819, "out": 8.72, "reason": "retake suelto 'Y como dato'"}
+  ],
+  "audio_treatment": {
+    "speech_speed": 1.08,
+    "speech_pitch": "preserved (atempo filter)",
+    "crossfade_duration": 0.4
+  },
+  "overlays": [
+    {"file": "beat_01_intro.html",    "start_in_output": 0.00,  "duration": 4.17},
+    {"file": "beat_02_problema.html", "start_in_output": 4.35,  "duration": 3.06},
+    {"file": "beat_03_cta.html",      "start_in_output": 7.59,  "duration": 1.71},
+    {"file": "beat_04_karaoke.html",  "start_in_output": 0.00,  "duration": 9.30},
+    {"file": "beat_05_outro.html",    "start_in_output": 17.50, "duration": 3.11}
+  ],
+  "output_duration": 20.613
+}

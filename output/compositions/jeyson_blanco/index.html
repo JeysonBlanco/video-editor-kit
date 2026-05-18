@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>jeyson_blanco — Beats</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background: #050508; min-height: 100vh; color: #fff; font-family: 'Inter', sans-serif; }
+  .page { max-width: 1080px; margin: 0 auto; padding: 40px 24px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 32px; margin-bottom: 6px; }
+  h1 b { color: #FAC51C; }
+  .sub { color: #B0B0B0; margin-bottom: 28px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .card { background: rgba(13,13,13,0.85); border: 1px solid rgba(250,197,28,0.18); border-radius: 16px; overflow: hidden; }
+  .card .label { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+  .card .name { font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+  .card .dur { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FAC51C; }
+  .preview {
+    width: 100%;
+    aspect-ratio: 540 / 960;
+    background:
+      linear-gradient(135deg, #1a1a22, #0d0d12 60%),
+      radial-gradient(circle at 30% 20%, rgba(250,197,28,0.08), transparent 50%);
+    position: relative;
+    overflow: hidden;
+  }
+  .preview iframe {
+    position: absolute;
+    inset: 0;
+    width: 540px;
+    height: 960px;
+    transform: scale(0.52);
+    transform-origin: top left;
+    border: 0;
+  }
+  .preview-wrap {
+    width: 100%;
+    aspect-ratio: 540 / 960;
+    position: relative;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>jeyson_blanco <b>· beats</b></h1>
+  <div class="sub">9:16 · 540×960 · 30fps · 10.5s</div>
+  <div class="grid">
+    <div class="card">
+      <div class="preview-wrap"><iframe src="beat_01_intro.html"></iframe></div>
+      <div class="label"><span class="name">01 · Intro</span><span class="dur">0.0–4.5s</span></div>
+    </div>
+    <div class="card">
+      <div class="preview-wrap"><iframe src="beat_02_problema.html"></iframe></div>
+      <div class="label"><span class="name">02 · Problema</span><span class="dur">4.7–8.0s</span></div>
+    </div>
+    <div class="card">
+      <div class="preview-wrap"><iframe src="beat_03_cta.html"></iframe></div>
+      <div class="label"><span class="name">03 · CTA</span><span class="dur">8.2–10.5s</span></div>
+    </div>
+    <div class="card">
+      <div class="preview-wrap"><iframe src="beat_04_karaoke.html"></iframe></div>
+      <div class="label"><span class="name">04 · Karaoke</span><span class="dur">0.0–10.5s</span></div>
+    </div>
+  </div>
+</div>
+<style>
+  .preview-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 540px;
+    height: 960px;
+    transform: scale(calc(100% / 540 * 280));
+    transform-origin: top left;
+    border: 0;
+  }
+  /* Hack: actual scale via cqw */
+  @container (min-width: 0) {
+    .preview-wrap iframe { transform: scale(0.55); }
+  }
+</style>
+</body>
+</html>
